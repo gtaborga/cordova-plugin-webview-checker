@@ -36,9 +36,9 @@ function promisifyCordovaExec(action, params, className) {
  * @returns {Promise<boolean>}
  */
 function isAndroidWebViewEnabled() {
-  return promisifyCordovaExec('isAppEnabled', ['com.google.android.webview']).catch(function (error) {
-    console.warn('[Android Webview Checker]: Error while trying to load information for Android WebView, falling back to "com.android.webview"!');
-    return promisifyCordovaExec('isAppEnabled', ['com.android.webview']);
+  return promisifyCordovaExec('isAppEnabled', ['com.android.webview']).catch(function (error) {
+    console.warn('[Android Webview Checker]: Error while trying to load information for Android WebView, falling back to "com.google.android.webview"!');
+    return promisifyCordovaExec('isAppEnabled', ['com.google.android.webview']);
   });
 }
 
@@ -48,9 +48,9 @@ function isAndroidWebViewEnabled() {
  * @returns {Promise<{ packageName: string, versionName: string, versionCode: number }>}
  */
 function getAndroidWebViewPackageInfo() {
-  return promisifyCordovaExec('getAppPackageInfo', ['com.google.android.webview']).catch(function (error) {
-    console.warn('[Android Webview Checker]: Error while trying to load information for Android WebView, falling back to "com.android.webview"!');
-    return promisifyCordovaExec('getAppPackageInfo', ['com.android.webview']);
+  return promisifyCordovaExec('getAppPackageInfo', ['com.android.webview']).catch(function (error) {
+    console.warn('[Android Webview Checker]: Error while trying to load information for Android WebView, falling back to "com.google.android.webview"!');
+    return promisifyCordovaExec('getAppPackageInfo', ['com.google.android.webview']);
   });
 }
 

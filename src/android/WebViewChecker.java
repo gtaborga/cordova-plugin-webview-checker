@@ -22,6 +22,9 @@ import java.lang.reflect.Method;
  */
 public class WebViewChecker extends CordovaPlugin {
 
+  public static final String LEGACY_ANDROID_SYSTEM_WEBVIEW = "com.android.webview";
+  public static final String ANDROID_SYSTEM_WEBVIEW = "com.google.android.webview";
+
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     if (action.equals("isAppEnabled")) {
@@ -78,7 +81,7 @@ public class WebViewChecker extends CordovaPlugin {
         pInfo = (PackageInfo) method.invoke(null);            
       } else {
         /* Before Lollipop the WebView was bundled with the OS. */
-        this.getAppPackageInfo("com.android.webview", callbackContext);
+        this.getAppPackageInfo(LEGACY_ANDROID_SYSTEM_WEBVIEW, callbackContext);
 
         /* The getAppPackageInfo function resolves the callbackContext 
          * and returns the same response, so we need to return here. 
@@ -109,8 +112,8 @@ public class WebViewChecker extends CordovaPlugin {
     try {
       pInfo = packageManager.getPackageInfo(packagename, 0);
     } catch (PackageManager.NameNotFoundException e) {
-      if (packagename.equals("com.android.webview")) {
-        this.getAppPackageInfo("com.google.android.webview", callbackContext);
+      if (packagename.equals(LEGACY_ANDROID_SYSTEM_WEBVIEW)) {
+        this.getAppPackageInfo(ANDROID_SYSTEM_WEBVIEW, callbackContext);
         return;
       }
       callbackContext.error("Package not found");

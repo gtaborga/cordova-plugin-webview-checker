@@ -2,6 +2,7 @@
  * List of possible WebView engines package names.
  */
 var POSSIBLE_WEBVIEW_ENGINES = {
+  LegacyAndroidSystemWebView: "com.android.webview",
   AndroidSystemWebView: "com.google.android.webview",
   GoogleChrome: "com.android.chrome",
   GoogleChromeBeta: "com.chrome.beta",
@@ -36,21 +37,21 @@ function promisifyCordovaExec(action, params, className) {
  * @returns {Promise<boolean>}
  */
 function isAndroidWebViewEnabled() {
-  return promisifyCordovaExec('isAppEnabled', ['com.android.webview']).catch(function (error) {
-    console.warn('[Android Webview Checker]: Error while trying to load information for Android WebView, falling back to "com.google.android.webview"!');
-    return promisifyCordovaExec('isAppEnabled', ['com.google.android.webview']);
+  return promisifyCordovaExec('isAppEnabled', [POSSIBLE_WEBVIEW_ENGINES.LegacyAndroidSystemWebView]).catch(function (error) {
+    console.warn('[Android Webview Checker]: Error while trying to load information for Android WebView, falling back to "' + POSSIBLE_WEBVIEW_ENGINES.AndroidSystemWebView + '"!');
+    return promisifyCordovaExec('isAppEnabled', [POSSIBLE_WEBVIEW_ENGINES.AndroidSystemWebView]);
   });
 }
 
 /**
  * Gets the version of the default Android System Webview (com.google.android.webview).
- * 
+ *
  * @returns {Promise<{ packageName: string, versionName: string, versionCode: number }>}
  */
 function getAndroidWebViewPackageInfo() {
-  return promisifyCordovaExec('getAppPackageInfo', ['com.android.webview']).catch(function (error) {
-    console.warn('[Android Webview Checker]: Error while trying to load information for Android WebView, falling back to "com.google.android.webview"!');
-    return promisifyCordovaExec('getAppPackageInfo', ['com.google.android.webview']);
+  return promisifyCordovaExec('getAppPackageInfo', [POSSIBLE_WEBVIEW_ENGINES.LegacyAndroidSystemWebView]).catch(function (error) {
+    console.warn('[Android Webview Checker]: Error while trying to load information for Android WebView, falling back to "' + POSSIBLE_WEBVIEW_ENGINES.AndroidSystemWebView + '"!');
+    return promisifyCordovaExec('getAppPackageInfo', [POSSIBLE_WEBVIEW_ENGINES.AndroidSystemWebView]);
   });
 }
 
